@@ -10,7 +10,7 @@
 
 <body class="font-sans bg-gray-50">
 
-  <!-- Menu de navegacion -->
+  <!-- NAV -->
   <nav class="bg-white shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
@@ -55,18 +55,16 @@
   <!-- SOBRE NOSOTROS -->
   <section id="sobre-nosotros" class="text-center py-16 bg-white">
     <div class="flex flex-col md:flex-row justify-center items-center gap-8 px-4">
-      <img src="https://placehold.co/580x850" alt="Imagen de ejemplo1" class="max-w-full h-auto rounded shadow-lg">
-      <img src="https://placehold.co/580x850" alt="Imagen de ejemplo2" class="max-w-full h-auto rounded shadow-lg">
+      <img src="https://placehold.co/580x850" alt="Imagen 1" class="rounded shadow-lg" />
+      <img src="https://placehold.co/580x850" alt="Imagen 2" class="rounded shadow-lg" />
     </div>
-
-    <h2 class="text-3xl font-bold mt-8 mb-4 font-raleway text-[#020728]">El Gato Naranja</h2>
-
+    <h2 class="text-3xl font-bold mt-8 mb-4 text-[#020728]">El Gato Naranja</h2>
     <div class="space-y-4 text-lg font-raleway text-[#020728] max-w-4xl mx-auto">
-      <p>Bienvenido a nuestra tienda online, donde ofrecemos una amplia variedad de hoodies, una prenda cómoda y en tendencia, con un diseño único y exclusivo.</p>
-      <p>Fundada por estudiantes politécnicos en el año 2024, con el objetivo de ofrecer productos de alta calidad.</p>
-      <p>Nos enfocamos en la calidad de los materiales y la confección, para ofrecerte un producto que no solo luzca bien, 
-        sino que también te haga sentir bien. Nuestro objetivo es brindarte una experiencia de compra excepcional, desde 
-        el momento en que entras a nuestra página hasta que recibes tu pedido.</p>
+    <p>Bienvenido a nuestra tienda online, donde ofrecemos una amplia variedad de hoodies, una prenda cómoda y en tendencia, con un diseño único y exclusivo.</p>
+    <p>Fundada por estudiantes politécnicos en el año 2024, con el objetivo de ofrecer productos de alta calidad.</p>
+    <p>Nos enfocamos en la calidad de los materiales y la confección, para ofrecerte un producto que no solo luzca bien, 
+      sino que también te haga sentir bien. Nuestro objetivo es brindarte una experiencia de compra excepcional, desde 
+      el momento en que entras a nuestra página hasta que recibes tu pedido.</p>
     </div>
   </section>
 
@@ -106,6 +104,14 @@
         <p class="text-lg">El envío fue rápido y el producto superó mis expectativas.</p>
       </article>
     </div>
+    <div class="mt-12 max-w-md mx-auto bg-gray-100 p-6 rounded shadow">
+      <h3 class="text-xl font-semibold mb-4">Deja tu comentario</h3>
+      <form id="form-reseña" class="space-y-4">
+        <input type="text" id="reseña-nombre" placeholder="Tu nombre" class="w-full p-3 border border-gray-300 rounded" required />
+        <textarea id="reseña-comentario" placeholder="Tu reseña" class="w-full p-3 border border-gray-300 rounded" required></textarea>
+        <button type="submit" class="bg-orange-500 text-white px-6 py-3 rounded">Enviar Reseña</button>
+      </form>
+    </div>
   </section>
 
   <!-- CONTACTO -->
@@ -129,7 +135,7 @@
 
   <!-- PANEL DE DATOS -->
   <section id="panel-datos" class="py-16 bg-gray-100 text-center">
-    <h2 class="text-3xl font-bold mb-8">Opiniones y mensajes</h2>
+    <h2 class="text-3xl font-bold mb-8">Panel de Opiniones y Mensajes</h2>
     <div class="max-w-4xl mx-auto mb-12">
       <h3 class="text-2xl font-semibold mb-4">Reseñas</h3>
       <div id="lista-reseñas" class="space-y-4 text-left"></div>
@@ -239,40 +245,7 @@
     cargarReseñas();
     cargarMensajes();
   </script>
-  <script>
-    // Simulación de fetch GET
-    window.addEventListener('DOMContentLoaded', () => {
-      fetch('https://jsonplaceholder.typicode.com/posts/1') // API falsa pública
-        .then(res => res.json())
-        .then(data => {
-          console.log("GET:", data); // Solo para mostrar que hiciste un GET
-          // También podrías mostrarlo en pantalla si quieres
-          const p = document.createElement('p');
-          p.textContent = "Resultado del fetch GET: " + data.title;
-          document.body.appendChild(p);
-        });
-    });
-
-    // Simulación de fetch POST cuando se envía el formulario
-    const formHTML = document.querySelector('#contacto form');
-    formHTML.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const nombre = this.querySelector('input[type="text"]').value;
-      const producto = this.querySelector('select').value;
-      const correo = this.querySelector('input[type="email"]').value;
-
-      fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, producto, correo })
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log("POST:", data); // Mostrar que hiciste un POST
-        });
-    });
-  </script>
 
 </body>
 </html>
+
