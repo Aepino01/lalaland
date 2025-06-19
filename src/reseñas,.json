@@ -1,0 +1,17 @@
+[
+  {
+    "nombre": "Juan Pérez",
+    "comentario": "¡Excelente calidad y atención! Muy recomendable.",
+    "fecha": "2025-06-15T10:00:00Z"
+  },
+  {
+    "nombre": "María López",
+    "comentario": "Me encantó el diseño de los productos. Volveré a comprar.",
+    "fecha": "2025-06-14T15:30:00Z"
+  },
+  {
+    "nombre": "Carlos Ruiz",
+    "comentario": "El envío fue rápido y el producto superó mis expectativas.",
+    "fecha": "2025-06-10T12:45:00Z"
+  }
+]

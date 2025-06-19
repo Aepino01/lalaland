@@ -87,20 +87,8 @@
   <!-- RESEÑAS -->
   <section id="reseñas" class="py-16 bg-white text-center">
     <h2 class="text-3xl font-bold mb-8">Reseñas de Clientes</h2>  
-    <div class="flex flex-col gap-6 max-w-3xl mx-auto bg-white bg-opacity-80 p-8 rounded shadow">
-      <article class="text-left">
-        <h3 class="text-xl font-semibold mb-2">Juan Pérez</h3>
-        <p class="text-lg">¡Excelente calidad y atención! Muy recomendable.</p>
-      </article>
-      <article class="text-left">
-        <h3 class="text-xl font-semibold mb-2">María López</h3>
-        <p class="text-lg">Me encantó el diseño de los productos. Volveré a comprar.</p>
-      </article>
-      <article class="text-left">
-        <h3 class="text-xl font-semibold mb-2">Carlos Ruiz</h3>
-        <p class="text-lg">El envío fue rápido y el producto superó mis expectativas.</p>
-      </article>
-    </div>
+    <div id="lista-reseñas" class="space-y-4 max-w-3xl mx-auto text-left bg-white bg-opacity-80 p-8 rounded shadow"></div>
+
     <div class="mt-12 max-w-md mx-auto bg-gray-100 p-6 rounded shadow">
       <h3 class="text-xl font-semibold mb-4">Deja tu comentario</h3>
       <form id="form-reseña" class="space-y-4">
@@ -189,38 +177,7 @@
       }
     });
 
-    // Formulario de reseñas
-    const formReseña = document.getElementById('form-reseña');
-    formReseña.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const nombre = document.getElementById('reseña-nombre').value;
-      const comentario = document.getElementById('reseña-comentario').value;
-      try {
-        await addDoc(collection(db, "reseñas"), { nombre, comentario, fecha: new Date() });
-        alert("¡Gracias por tu reseña!");
-        formReseña.reset();
-        cargarReseñas();
-      } catch (error) {
-        alert("Hubo un error al enviar tu reseña");
-        console.error(error);
-      }
-    });
-
-    // Cargar reseñas
-    async function cargarReseñas() {
-      const cont = document.getElementById('lista-reseñas');
-      cont.innerHTML = '';
-      const snapshot = await getDocs(collection(db, "reseñas"));
-      snapshot.forEach(doc => {
-        const { nombre, comentario, fecha } = doc.data();
-        const fechaStr = fecha?.toDate?.().toLocaleDateString() || '';
-        cont.innerHTML += `
-          <div class="p-4 bg-white rounded shadow">
-            <p class="font-bold">${nombre} <span class="text-sm text-gray-500">(${fechaStr})</span></p>
-            <p>${comentario}</p>
-          </div>`;
-      });
-    }
+  
 
     // Cargar mensajes
     async function cargarMensajes() {
@@ -238,10 +195,66 @@
       });
     }
 
-    // Ejecutar al cargar
-    cargarReseñas();
+    
+    // POST: Guardar reseña (simulado con localStorage)
+    document.getElementById('form-reseña').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById('reseña-nombre').value;
+    const comentario = document.getElementById('reseña-comentario').value;
+    const fecha = new Date().toISOString();
+
+    const nuevaReseña = { nombre, comentario, fecha };
+
+    // Simular un POST con fetch (aunque no va a ningún servidor real)
+    await fetch('/guardar-resena', {
+    method: 'POST',
+    body: JSON.stringify(nuevaReseña)
+    });
+
+    // Guardar localmente
+    const reseñas = JSON.parse(localStorage.getItem('reseñas') || '[]');
+    reseñas.push(nuevaReseña);
+    localStorage.setItem('reseñas', JSON.stringify(reseñas));
+
+    alert("¡Gracias por tu reseña!");
+   this.reset();
+   cargarReseñasFetch(); // recargar reseñas
+  });
+
+  // GET: Cargar reseñas desde localStorage
+  const reseñasIniciales = [
+  { nombre: "Juan Pérez", comentario: "¡Excelente calidad y atención! Muy recomendable.", fecha: "2024-12-01T10:00:00Z" },
+  { nombre: "María López", comentario: "Me encantó el diseño de los productos. Volveré a comprar.", fecha: "2024-12-05T12:00:00Z" },
+  { nombre: "Carlos Ruiz", comentario: "El envío fue rápido y el producto superó mis expectativas.", fecha: "2024-12-10T15:00:00Z" }
+  ];
+
+  function cargarReseñasFetch() {
+    const cont = document.getElementById('lista-reseñas');
+    cont.innerHTML = '';
+
+    const reseñasGuardadas = JSON.parse(localStorage.getItem('reseñas') || '[]');
+    const todasLasReseñas = [...reseñasIniciales, ...reseñasGuardadas];
+
+    todasLasReseñas.forEach(({ nombre, comentario, fecha }) => {
+    const fechaStr = new Date(fecha).toLocaleDateString();
+
+    cont.innerHTML += `
+      <div class="p-4 bg-white rounded shadow">
+        <p class="font-bold">${nombre} <span class="text-sm text-gray-500">(${fechaStr})</span></p>
+        <p>${comentario}</p>
+      </div>
+    `;
+    });
+}
+
+  // Ejecutar al cargar
+    window.addEventListener('load', () => {
+    cargarReseñasFetch();
     cargarMensajes();
-  </script>
+    });
+
+</script>
 
 </body>
 </html>
